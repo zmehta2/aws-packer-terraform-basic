@@ -1,5 +1,5 @@
 provider "aws" {
-  region = var.region
+  region  = "us-east-1"
 }
 
 # Get your public IP for bastion host security group
@@ -39,5 +39,5 @@ module "ec2_instances" {
   subnet_ids          = module.vpc.private_subnet_ids
   bastion_sg_id       = module.bastion.security_group_id
   key_name            = var.key_name
-  instance_count      = 2
+  instance_count      = 6
 }
