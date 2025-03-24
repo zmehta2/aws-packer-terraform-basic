@@ -103,7 +103,9 @@ ssh -i ~/.ssh/aws-key ec2-user@<ec2-private-ip>
 
 ### Packer Build
 
-![Packer Build](screenshots/packer-build.png)
+<img width="1259" alt="Screenshot 2025-03-24 at 1 20 10 PM" src="https://github.com/user-attachments/assets/8ef7982a-7f97-4e3e-b5a1-4b088b6e1701" />
+
+<img width="1077" alt="Screenshot 2025-03-24 at 1 20 22 PM" src="https://github.com/user-attachments/assets/79ef143a-7b83-4701-a3aa-12b8410cc729" />
 
 ### Terraform Apply
 
