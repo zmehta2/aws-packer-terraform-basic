@@ -49,12 +49,11 @@ variable "ec2_instance_type" {
 variable "custom_ami_id" {
   description = "Custom AMI ID created with Packer"
   type        = string
-  # You'll need to replace this with your actual AMI ID after running Packer
-  default     = "ami-0123456789abcdef0"
+  default     = "ami-002248fb4e7f3b0a2"
 }
 
 variable "key_name" {
   description = "SSH key name"
   type        = string
-  default     = "aws-key"
+  default     = "vockey"
 }
