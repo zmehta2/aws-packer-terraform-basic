@@ -144,6 +144,8 @@ cd terraform
 terraform destroy
 ```
 
+<img width="1165" alt="Screenshot 2025-03-26 at 2 14 35 AM" src="https://github.com/user-attachments/assets/30924e56-6787-425b-938b-963cafa28114" />
+
 ## Notes
 
 - The bastion host security group only allows SSH access from your IP address.
