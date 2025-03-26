@@ -103,19 +103,37 @@ ssh -i ~/.ssh/aws-key ec2-user@<ec2-private-ip>
 
 ### Packer Build
 
-![Packer Build](screenshots/packer-build.png)
+<img width="1077" alt="Screenshot 2025-03-24 at 1 20 22 PM" src="https://github.com/user-attachments/assets/79ef143a-7b83-4701-a3aa-12b8410cc729" />
 
 ### Terraform Apply
 
-![Terraform Apply](screenshots/terraform-apply.png)
+<img width="737" alt="Screenshot 2025-03-26 at 1 53 03 AM" src="https://github.com/user-attachments/assets/87d00734-b2c8-4c0f-97b5-5f6b8bcb31de" />
 
-### SSH to Bastion Host
+### VPC
 
-![SSH to Bastion Host](screenshots/ssh-bastion.png)
+<img width="1698" alt="Screenshot 2025-03-26 at 1 56 11 AM" src="https://github.com/user-attachments/assets/5118921d-173f-4cb3-b6b3-089efe3b7ada" />
 
-### SSH to Private EC2 Instance
+<img width="1710" alt="Screenshot 2025-03-26 at 1 51 42 AM" src="https://github.com/user-attachments/assets/5f8e163a-531b-459c-a225-ba588012555d" />
 
-![SSH to EC2 Instance](screenshots/ssh-ec2.png)
+## Private subnet is connected to the internet through a NAT Gateway
+
+<img width="1415" alt="Screenshot 2025-03-26 at 1 58 14 AM" src="https://github.com/user-attachments/assets/e2334ea8-8cc1-4537-b596-ba3fe75047fa" />
+
+## Public subnet connected to internet through Internet Gateway
+
+<img width="1400" alt="Screenshot 2025-03-26 at 1 59 38 AM" src="https://github.com/user-attachments/assets/183c04cb-4e60-4dc2-9f6d-340b7677568b" />
+
+## Internet Gateways
+
+<img width="1448" alt="Screenshot 2025-03-26 at 2 07 25 AM" src="https://github.com/user-attachments/assets/f8ce4dae-f98e-4da4-99b8-54c870fab33d" />
+
+## Elastic IPs
+
+<img width="1428" alt="Screenshot 2025-03-26 at 2 08 37 AM" src="https://github.com/user-attachments/assets/af94368b-3d4c-42b2-bd49-debbe3322f8f" />
+
+## NAT gateways 
+
+<img width="1442" alt="Screenshot 2025-03-26 at 2 10 10 AM" src="https://github.com/user-attachments/assets/58b985bd-37cb-4545-8ed3-367ccb73b50a" />
 
 ## Cleaning Up
 
