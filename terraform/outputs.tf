@@ -8,12 +8,27 @@ output "bastion_ip" {
   value       = module.bastion.bastion_ip
 }
 
-output "ec2_private_ips" {
-  description = "Private IPs of the EC2 instances"
-  value       = module.ec2_instances.private_ips
+output "amazon_linux_private_ips" {
+  description = "Private IPs of the Amazon Linux EC2 instances"
+  value       = module.ec2_instances.amazon_linux_private_ips
 }
 
-output "connection_string" {
-  description = "SSH connection string to bastion host"
-  value       = "ssh -i ~/.ssh/aws-key ec2-user@${module.bastion.bastion_ip}"
+output "ubuntu_private_ips" {
+  description = "Private IPs of the Ubuntu EC2 instances"
+  value       = module.ec2_instances.ubuntu_private_ips
+}
+
+output "ansible_controller_private_ip" {
+  description = "Private IP of the Ansible controller"
+  value       = module.ec2_instances.ansible_controller_private_ip
+}
+
+output "ssh_bastion_command" {
+  description = "SSH command to connect to the bastion host"
+  value       = "ssh -i ~/.ssh/${var.key_name}.pem ec2-user@${module.bastion.bastion_ip}"
+}
+
+output "all_instances_info" {
+  description = "Information about all instances"
+  value       = module.ec2_instances.all_instances
 }

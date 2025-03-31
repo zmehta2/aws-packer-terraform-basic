@@ -1,0 +1,49 @@
+Host bastion
+    HostName 54.147.82.67
+    User ec2-user
+    IdentityFile ~/.ssh/vockey.pem
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+
+Host 10.0.3.119
+    HostName 10.0.3.119
+    ProxyJump bastion
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    IdentityFile ~/.ssh/vockey.pem
+Host 10.0.4.166
+    HostName 10.0.4.166
+    ProxyJump bastion
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    IdentityFile ~/.ssh/vockey.pem
+Host 10.0.3.221
+    HostName 10.0.3.221
+    ProxyJump bastion
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    IdentityFile ~/.ssh/vockey.pem
+Host 10.0.3.130
+    HostName 10.0.3.130
+    ProxyJump bastion
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    IdentityFile ~/.ssh/vockey.pem
+Host 10.0.4.254
+    HostName 10.0.4.254
+    ProxyJump bastion
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    IdentityFile ~/.ssh/vockey.pem
+Host 10.0.3.78
+    HostName 10.0.3.78
+    ProxyJump bastion
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    IdentityFile ~/.ssh/vockey.pem
+Host 10.0.3.160
+    HostName 10.0.3.160
+    ProxyJump bastion
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    IdentityFile ~/.ssh/vockey.pem

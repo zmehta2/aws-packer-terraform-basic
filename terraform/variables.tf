@@ -46,14 +46,20 @@ variable "ec2_instance_type" {
   default     = "t2.micro"
 }
 
-variable "custom_ami_id" {
-  description = "Custom AMI ID created with Packer"
-  type        = string
-  default     = "ami-002248fb4e7f3b0a2"
-}
-
 variable "key_name" {
   description = "SSH key name"
   type        = string
   default     = "vockey"
+}
+
+variable "amazon_linux_ami_id" {
+  description = "AMI ID for Amazon Linux EC2 instances"
+  type        = string
+  default     = "ami-0230bd60aa48260c6" # Amazon Linux 2 AMI in us-east-1
+}
+
+variable "ubuntu_ami_id" {
+  description = "AMI ID for Ubuntu EC2 instances"
+  type        = string
+  default     = "ami-080e1f13689e07408" # Ubuntu 22.04 LTS in us-east-1
 }

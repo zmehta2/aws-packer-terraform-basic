@@ -1,0 +1,15 @@
+[amazon_linux]
+%{ for ip in amazon_linux_hosts ~}
+${ip} ansible_user=ec2-user ansible_ssh_private_key_file=${ssh_key_path} ansible_ssh_common_args='-F ../ansible/ssh_config'
+%{ endfor ~}
+
+[ubuntu]
+%{ for ip in ubuntu_hosts ~}
+${ip} ansible_user=ubuntu ansible_ssh_private_key_file=${ssh_key_path} ansible_ssh_common_args='-F ../ansible/ssh_config'
+%{ endfor ~}
+
+[ansible_controller]
+${ansible_controller} ansible_user=ubuntu ansible_ssh_private_key_file=${ssh_key_path} ansible_ssh_common_args='-F ../ansible/ssh_config'
+
+[all:vars]
+ansible_ssh_common_args='-F ../ansible/ssh_config'

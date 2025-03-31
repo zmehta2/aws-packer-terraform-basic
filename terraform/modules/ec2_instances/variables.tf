@@ -1,5 +1,10 @@
-variable "ami_id" {
-  description = "AMI ID for EC2 instances"
+variable "amazon_linux_ami_id" {
+  description = "AMI ID for Amazon Linux EC2 instances"
+  type        = string
+}
+
+variable "ubuntu_ami_id" {
+  description = "AMI ID for Ubuntu EC2 instances"
   type        = string
 }
 
@@ -28,8 +33,14 @@ variable "key_name" {
   type        = string
 }
 
-variable "instance_count" {
-  description = "Number of EC2 instances to create"
+variable "amazon_linux_count" {
+  description = "Number of Amazon Linux EC2 instances to create"
   type        = number
-  default     = 6
+  default     = 3
+}
+
+variable "ubuntu_count" {
+  description = "Number of Ubuntu EC2 instances to create"
+  type        = number
+  default     = 3
 }

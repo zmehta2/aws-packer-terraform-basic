@@ -25,16 +25,52 @@ resource "aws_security_group" "ec2" {
   }
 }
 
-# EC2 Instances
-resource "aws_instance" "ec2" {
-  count                  = var.instance_count
-  ami                    = var.ami_id
+# Amazon Linux EC2 Instances
+resource "aws_instance" "amazon_linux" {
+  count                  = var.amazon_linux_count
+  ami                    = var.amazon_linux_ami_id
   instance_type          = var.instance_type
   subnet_id              = var.subnet_ids[count.index % length(var.subnet_ids)]
   vpc_security_group_ids = [aws_security_group.ec2.id]
   key_name               = var.key_name
 
   tags = {
-    Name = "ec2-instance-${count.index + 1}"
+    Name = "ec2-amazon-linux-${count.index + 1}"
+    OS   = "amazon"
+  }
+}
+
+# Ubuntu EC2 Instances
+resource "aws_instance" "ubuntu" {
+  count                  = var.ubuntu_count
+  ami                    = var.ubuntu_ami_id
+  instance_type          = var.instance_type
+  subnet_id              = var.subnet_ids[count.index % length(var.subnet_ids)]
+  vpc_security_group_ids = [aws_security_group.ec2.id]
+  key_name               = var.key_name
+
+  tags = {
+    Name = "ec2-ubuntu-${count.index + 1}"
+    OS   = "ubuntu"
+  }
+}
+
+# Ansible Controller Instance
+resource "aws_instance" "ansible_controller" {
+  ami                    = var.ubuntu_ami_id  # Using Ubuntu for Ansible controller
+  instance_type          = var.instance_type
+  subnet_id              = var.subnet_ids[0]
+  vpc_security_group_ids = [aws_security_group.ec2.id]
+  key_name               = var.key_name
+  user_data              = <<-EOF
+    #!/bin/bash
+    apt-get update
+    apt-get install -y ansible python3-pip
+    pip3 install boto3
+    echo "Ansible controller setup completed"
+  EOF
+
+  tags = {
+    Name = "ansible-controller"
   }
 }

@@ -1,0 +1,15 @@
+Host bastion
+    HostName ${bastion_ip}
+    User ec2-user
+    IdentityFile ${key_path}
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+
+%{ for ip in private_ips ~}
+Host ${ip}
+    HostName ${ip}
+    ProxyJump bastion
+    StrictHostKeyChecking no
+    UserKnownHostsFile /dev/null
+    IdentityFile ${key_path}
+%{ endfor ~}

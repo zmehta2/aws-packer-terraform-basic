@@ -1,0 +1,78 @@
+- name: Configure EC2 Instances
+  hosts: amazon_linux:ubuntu
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Update package cache
+      package:
+        update_cache: yes
+      register: package_update
+
+    - name: Upgrade packages
+      package:
+        upgrade: yes
+      register: package_upgrade
+      when: ansible_os_family == "Debian"
+
+    - name: Upgrade packages (Amazon Linux)
+      yum:
+        name: '*'
+        state: latest
+      register: package_upgrade_amazon
+      when: ansible_os_family == "RedHat"
+
+    - name: Check if Docker is installed
+      command: which docker
+      register: docker_check
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Install Docker on Ubuntu
+      apt:
+        name: docker.io
+        state: latest
+      when:
+        - ansible_os_family == "Debian"
+        - docker_check.rc != 0
+
+    - name: Install Docker on Amazon Linux
+      block:
+        - name: Install Docker on Amazon Linux
+          command: amazon-linux-extras install docker -y
+          when: docker_check.rc != 0
+
+        - name: Start Docker service
+          service:
+            name: docker
+            state: started
+            enabled: yes
+      when: ansible_os_family == "RedHat"
+
+    - name: Get Docker version
+      command: docker --version
+      register: docker_version
+      changed_when: false
+
+    - name: Report disk usage
+      shell: df -h
+      register: disk_usage
+      changed_when: false
+
+    - name: Display system information
+      debug:
+        msg: |
+          Hostname: {{ ansible_hostname }}
+          OS Family: {{ ansible_os_family }}
+          Distribution: {{ ansible_distribution }} {{ ansible_distribution_version }}
+          Docker Version: {{ docker_version.stdout }}
+          
+          Disk Usage:
+          {{ disk_usage.stdout }}
+          
+          Package updates status:
+          {% if ansible_os_family == "Debian" %}
+          Updates: {{ package_upgrade.changed | ternary('Applied', 'No updates needed') }}
+          {% else %}
+          Updates: {{ package_upgrade_amazon.changed | ternary('Applied', 'No updates needed') }}
+          {% endif %}
