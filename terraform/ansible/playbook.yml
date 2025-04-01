@@ -1,3 +1,4 @@
+---
 - name: Configure EC2 Instances
   hosts: amazon_linux:ubuntu
   become: yes
@@ -36,23 +37,47 @@
         - ansible_os_family == "Debian"
         - docker_check.rc != 0
 
-    - name: Install Docker on Amazon Linux
-      block:
-        - name: Install Docker on Amazon Linux
-          command: amazon-linux-extras install docker -y
-          when: docker_check.rc != 0
+    - name: Check Amazon Linux version
+      command: cat /etc/os-release
+      register: os_release
+      changed_when: false
+      when:
+        - ansible_os_family == "RedHat"
+        - docker_check.rc != 0
 
-        - name: Start Docker service
-          service:
-            name: docker
-            state: started
-            enabled: yes
-      when: ansible_os_family == "RedHat"
+    - name: Install Docker on Amazon Linux with dnf (for AL2023)
+      dnf:
+        name: docker
+        state: present
+      when:
+        - ansible_os_family == "RedHat"
+        - docker_check.rc != 0
+      ignore_errors: yes
+
+    - name: Install Docker on Amazon Linux with yum (fallback)
+      yum:
+        name: docker
+        state: present
+      when:
+        - ansible_os_family == "RedHat"
+        - docker_check.rc != 0
+      ignore_errors: yes
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      when:
+        - ansible_os_family == "RedHat"
+        - docker_check.rc != 0
+      ignore_errors: yes
 
     - name: Get Docker version
       command: docker --version
       register: docker_version
       changed_when: false
+      ignore_errors: yes
 
     - name: Report disk usage
       shell: df -h
@@ -65,7 +90,7 @@
           Hostname: {{ ansible_hostname }}
           OS Family: {{ ansible_os_family }}
           Distribution: {{ ansible_distribution }} {{ ansible_distribution_version }}
-          Docker Version: {{ docker_version.stdout }}
+          Docker Version: {{ docker_version.stdout | default('Not installed or not detected') }}
           
           Disk Usage:
           {{ disk_usage.stdout }}
